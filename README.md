@@ -14,4 +14,16 @@ Here are some ideas to get you started:
 - 😄 Pronouns: ...
 - ⚡ Fun fact: ...
 -->
- for %f in ("C:\Users\nuccdc\AppData\Local\Temp\85D4234D-B3E3-4685-A3DB-8AD931F1729C\DismHost.exe" "C:\Users\nuccdc\AppData\Local\Temp\D8E2ABD8-B93F-4EA7-8D97-4C925A92E997\DismHost.exe" "C:\Users\nuccdc\AppData\Local\Temp\{1AB8CB13-F1A2-4248-B31F-0D2C6CF0612A}\idle.exe" "C:\Users\nuccdc\AppData\Local\Programs\Python\Python311\tcl\nmake\x86_64-w64-mingw32-nmakehip.exe" "C:\Users\nuccdc\Downloads\TeamsSetup_c_w_.exe" "C:\Users\nuccdc\Downloads\ExcelViewer.exe" "C:\Users\nuccdc\AppData\Local\Temp\{54724SC6-4AA5-4DF9-856A-623D174A9B02}-MicrosoftEdgeUpdateSetup_X86_1.3.203.13.exe") do @echo === %f === & strings.exe -accepteula "%f" | findstr /i "http:// https:// [0-9]*\.[0-9]*\.[0-9]*\.[0-9]*" & echo.
+# Look for ANY interesting strings in the "no results" binaries
+strings.exe -accepteula "C:\Users\nuccdc\AppData\Local\Temp\{1AB8CB13-F1A2-4248-B31F-0D2C6CF0612A}\idle.exe" > idle_all_strings.txt
+
+strings.exe -accepteula "C:\Users\nuccdc\AppData\Local\Programs\Python\Python311\tcl\nmake\x86_64-w64-mingw32-nmakehip.exe" > nmakehip_all_strings.txt
+
+strings.exe -accepteula "C:\Users\nuccdc\AppData\Local\Temp\{54724SC6-4AA5-4DF9-856A-623D174A9B02}-MicrosoftEdgeUpdateSetup_X86_1.3.203.13.exe" > edge_all_strings.txt
+
+# More flexible IP search
+strings.exe -accepteula "idle.exe" | findstr /r "[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*"
+
+# Check if files are digitally signed
+sigcheck.exe -accepteula "idle.exe"
+sigcheck.exe -accepteula "nmakehip.exe"
